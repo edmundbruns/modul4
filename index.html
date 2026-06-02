@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SOL Band 1 · Modul 4 – Fachstandards und Qualität</title>
+<style>
+:root {
+  --hd:#1a3d6b; --hd2:#2a5fa8; --ab:#c8d8f0; --abd:#b0c4e8;
+  --gr:#2e7d32; --grl:#c8e6c9; --rd:#b71c1c; --rdl:#ffcdd2;
+  --yl:#f9a825; --yll:#fff9c4; --wh:#fff; --bg:#f4f7fb;
+  --tx:#1a2340; --bdr:14px; --sh:0 2px 12px rgba(26,61,107,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--tx);font-size:1rem;line-height:1.6}
+a{color:var(--hd2)}
+
+/* HEADER */
+.site-header{background:var(--hd);color:#fff;padding:18px 20px 14px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.site-header h1{font-size:1.18rem;font-weight:700;letter-spacing:.01em}
+.site-header .sub{font-size:.82rem;opacity:.8;margin-top:2px}
+.pillrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.pill{background:rgba(255,255,255,.15);border-radius:20px;padding:3px 12px;font-size:.78rem;cursor:pointer;border:1px solid rgba(255,255,255,.25);transition:background .2s}
+.pill:hover,.pill.active{background:rgba(255,255,255,.32)}
+#prog-bar-wrap{margin-top:10px;background:rgba(255,255,255,.18);border-radius:8px;height:7px}
+#prog-bar{height:7px;border-radius:8px;background:linear-gradient(90deg,#4caf50,#81c784);width:0%;transition:width .5s}
+#prog-label{font-size:.75rem;opacity:.75;margin-top:3px}
+
+/* LAYOUT */
+main{max-width:860px;margin:0 auto;padding:28px 16px 60px}
+section{margin-bottom:36px}
+.card{background:#fff;border-radius:var(--bdr);box-shadow:var(--sh);padding:22px 24px;margin-bottom:18px}
+h2{font-size:1.18rem;font-weight:700;color:var(--hd);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+h3{font-size:1rem;font-weight:700;color:var(--hd2);margin:14px 0 6px}
+p{margin-bottom:10px}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;border-radius:20px;padding:2px 10px;margin-left:6px;vertical-align:middle}
+.badge-blau{background:var(--ab);color:var(--hd)}
+.badge-gruen{background:var(--grl);color:var(--gr)}
+.done-mark{display:none;color:var(--gr);font-size:1.1rem;margin-left:auto}
+
+/* SECTION DONE STATE */
+section.sec-done .done-mark{display:inline}
+section.sec-done h2{color:var(--gr)}
+
+/* BUTTONS */
+.btn{display:inline-block;padding:9px 22px;border-radius:8px;border:none;font-size:.95rem;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--hd);color:#fff}
+.btn-primary:hover{background:var(--hd2)}
+.btn-green{background:#4caf50;color:#fff}
+.btn-green:hover{background:#388e3c}
+.btn-outline{background:#fff;color:var(--hd);border:2px solid var(--hd)}
+.btn-outline:hover{background:var(--ab)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* INPUTS */
+textarea,input[type=text]{width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--abd);font-size:.95rem;font-family:inherit;transition:border .2s;background:#fff}
+textarea:focus,input[type=text]:focus{border-color:var(--hd2);outline:none}
+textarea{min-height:90px;resize:vertical}
+label.field-lbl{font-weight:600;display:block;margin:10px 0 4px;font-size:.9rem}
+
+/* ACCORDION */
+.acc-item{border:1.5px solid var(--abd);border-radius:10px;margin-bottom:8px;overflow:hidden}
+.acc-head{background:var(--ab);padding:12px 16px;cursor:pointer;font-weight:700;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.acc-head:hover{background:#b0c4e8}
+.acc-body{display:none;padding:14px 16px;border-top:1px solid var(--abd)}
+.acc-body.open{display:block}
+.acc-arrow{transition:transform .25s;font-size:1.1rem}
+.acc-item.open .acc-arrow{transform:rotate(90deg)}
+
+/* FLIP CARDS */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:14px}
+.flip-card{perspective:600px;height:140px;cursor:pointer}
+.flip-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .5s}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-front,.flip-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:12px;display:flex;align-items:center;justify-content:center;padding:12px;text-align:center;font-size:.88rem}
+.flip-front{background:var(--hd);color:#fff;font-weight:700}
+.flip-back{background:var(--grl);color:var(--gr);transform:rotateY(180deg);font-size:.82rem;line-height:1.5}
+
+/* TRUE / FALSE */
+.tf-item{background:#fff;border:1.5px solid var(--abd);border-radius:10px;padding:12px 16px;margin-bottom:10px}
+.tf-stmt{font-weight:600;margin-bottom:8px}
+.tf-btns{display:flex;gap:8px}
+.tf-btn{flex:1;padding:7px;border-radius:7px;border:1.5px solid var(--abd);font-weight:700;cursor:pointer;transition:all .2s;background:#fff}
+.tf-btn.correct{background:var(--grl);border-color:var(--gr);color:var(--gr)}
+.tf-btn.wrong{background:var(--rdl);border-color:var(--rd);color:var(--rd)}
+.tf-btn.selected{background:var(--ab);border-color:var(--hd2)}
+.tf-feedback{margin-top:8px;font-size:.85rem;padding:6px 10px;border-radius:6px;display:none}
+
+/* DRAG & DROP */
+.drag-area{display:flex;gap:18px;flex-wrap:wrap;margin-top:14px}
+.drag-col{flex:1;min-width:200px}
+.drag-col-title{font-weight:700;color:#fff;border-radius:8px 8px 0 0;padding:8px 14px;text-align:center}
+.drag-col-title.fundament{background:var(--hd)}
+.drag-col-title.instrument{background:#546e7a}
+.drag-zone{min-height:120px;border:2px dashed var(--abd);border-radius:0 0 8px 8px;padding:10px;display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
+.drag-zone.over{background:var(--ab);border-color:var(--hd2)}
+.drag-bank{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;padding:12px;background:#f0f4fa;border-radius:10px;border:2px dashed var(--abd);min-height:54px}
+.drag-chip{background:var(--hd2);color:#fff;border-radius:20px;padding:5px 14px;font-size:.85rem;cursor:grab;user-select:none;transition:opacity .2s}
+.drag-chip:active{cursor:grabbing;opacity:.7}
+.drag-chip.placed{opacity:.5}
+
+/* BRANCHING */
+.branch-box{background:#fff;border:1.5px solid var(--abd);border-radius:12px;padding:20px;margin-bottom:12px}
+.branch-opts{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.branch-opt{padding:10px 16px;border-radius:8px;border:1.5px solid var(--abd);cursor:pointer;transition:all .2s;background:#fff;font-size:.93rem}
+.branch-opt:hover{background:var(--ab);border-color:var(--hd2)}
+.branch-result{display:none;margin-top:12px;padding:12px 16px;border-radius:8px;font-size:.9rem}
+.branch-result.good{background:var(--grl);color:var(--gr);border:1px solid var(--gr)}
+.branch-result.bad{background:var(--rdl);color:var(--rd);border:1px solid var(--rd)}
+.branch-result.ok{background:var(--yll);color:#5d4037;border:1px solid var(--yl)}
+
+/* MULTIPLE CHOICE */
+.mc-item{background:#fff;border:1.5px solid var(--abd);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.mc-opts{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.mc-opt{display:flex;align-items:flex-start;gap:8px;padding:8px 12px;border-radius:7px;border:1.5px solid var(--abd);cursor:pointer;transition:all .2s}
+.mc-opt:hover{background:var(--ab)}
+.mc-opt.correct{background:var(--grl);border-color:var(--gr)}
+.mc-opt.wrong{background:var(--rdl);border-color:var(--rd)}
+.mc-opt input{margin-top:3px;cursor:pointer}
+.mc-check-btn{margin-top:10px}
+
+/* FILL BLANKS */
+.blank-text{font-size:.98rem;line-height:2.2;background:#f8faff;border-radius:10px;padding:16px}
+.blank{display:inline-block;border-bottom:2px solid var(--hd2);min-width:110px;padding:0 4px;margin:0 3px;font-weight:700;color:var(--hd2);background:transparent;border-radius:0;font-size:.95rem;font-family:inherit;text-align:center}
+.blank:focus{outline:none;border-color:var(--hd)}
+.blank.correct{color:var(--gr);border-color:var(--gr)}
+.blank.wrong{color:var(--rd);border-color:var(--rd)}
+
+/* MARK WORDS */
+.marktext{font-size:.97rem;line-height:2.0;background:#f8faff;border-radius:10px;padding:16px}
+.markword{cursor:pointer;border-radius:4px;padding:1px 2px;transition:background .15s}
+.markword:hover{background:var(--ab)}
+.markword.marked{background:#ffe082;font-weight:700}
+.markword.correct-mark{background:var(--grl);color:var(--gr);font-weight:700}
+.markword.wrong-mark{background:var(--rdl);color:var(--rd)}
+
+/* SORT PARAGRAPHS */
+.sort-container{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.sort-item{background:#fff;border:1.5px solid var(--abd);border-radius:8px;padding:10px 14px;cursor:grab;display:flex;align-items:center;gap:10px;transition:box-shadow .2s}
+.sort-item:active{cursor:grabbing;box-shadow:0 4px 16px rgba(26,61,107,.2)}
+.sort-item.dragging{opacity:.5}
+.sort-handle{color:var(--hd2);font-size:1.2rem;flex-shrink:0}
+.sort-num{font-weight:700;color:var(--hd);min-width:22px}
+
+/* MEMORY GAME */
+.memory-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+.mem-card{height:80px;cursor:pointer;perspective:600px}
+.mem-inner{width:100%;height:100%;transform-style:preserve-3d;transition:transform .4s;position:relative}
+.mem-card.flipped .mem-inner,.mem-card.matched .mem-inner{transform:rotateY(180deg)}
+.mem-front,.mem-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:8px;display:flex;align-items:center;justify-content:center;padding:6px;text-align:center;font-size:.78rem;font-weight:600}
+.mem-front{background:var(--hd);color:#fff}
+.mem-back{background:var(--grl);color:var(--gr);transform:rotateY(180deg)}
+.mem-card.matched .mem-back{background:#a5d6a7}
+
+/* AMPEL */
+.ampel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:14px}
+.ampel-item{background:#fff;border:1.5px solid var(--abd);border-radius:10px;padding:14px}
+.ampel-label{font-weight:700;font-size:.9rem;margin-bottom:10px;color:var(--tx)}
+.ampel-btns{display:flex;gap:8px}
+.ampel-btn{flex:1;padding:7px 4px;border-radius:7px;border:2px solid transparent;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .2s;opacity:.5}
+.ampel-btn.g{background:var(--grl);color:var(--gr);border-color:var(--gr)}
+.ampel-btn.y{background:var(--yll);color:#5d4037;border-color:var(--yl)}
+.ampel-btn.r{background:var(--rdl);color:var(--rd);border-color:var(--rd)}
+.ampel-btn.active{opacity:1;transform:scale(1.06)}
+
+/* INFO WALL */
+.info-wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:14px}
+.info-tile{background:linear-gradient(135deg,var(--hd),var(--hd2));color:#fff;border-radius:12px;padding:16px;min-height:110px;display:flex;flex-direction:column;justify-content:space-between}
+.info-tile h4{font-size:.88rem;font-weight:700;margin-bottom:6px}
+.info-tile p{font-size:.8rem;opacity:.88;line-height:1.5}
+.info-tile-num{font-size:2rem;font-weight:900;opacity:.2;align-self:flex-end;line-height:1}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:30px;margin-top:14px}
+.timeline::before{content:'';position:absolute;left:12px;top:0;bottom:0;width:3px;background:var(--ab)}
+.tl-item{position:relative;margin-bottom:20px}
+.tl-dot{position:absolute;left:-24px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--hd2);border:2.5px solid #fff;box-shadow:0 0 0 2px var(--hd2)}
+.tl-content{background:#fff;border:1.5px solid var(--abd);border-radius:10px;padding:12px 16px}
+.tl-step{font-size:.75rem;color:var(--hd2);font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.tl-title{font-weight:700;margin-bottom:4px}
+.tl-desc{font-size:.88rem;color:#555}
+
+/* FEHLERWERKSTATT */
+.fehler-item{background:#fff;border-left:4px solid var(--rd);border-radius:0 10px 10px 0;padding:14px 18px;margin-bottom:12px;box-shadow:var(--sh)}
+.fehler-szenario{font-weight:700;color:var(--rd);margin-bottom:8px}
+.fehler-reveal{display:none;margin-top:10px;padding:10px 14px;background:var(--grl);border-radius:8px;font-size:.88rem;color:var(--gr)}
+
+/* CROSSWORD HINT */
+.crossword-grid{display:grid;grid-template-columns:repeat(10,32px);gap:2px;margin:14px 0;justify-content:center}
+.cw-cell{width:32px;height:32px;display:flex;align-items:center;justify-content:center}
+.cw-cell input{width:32px;height:32px;border:1.5px solid var(--hd2);border-radius:4px;text-align:center;font-weight:700;font-size:1rem;text-transform:uppercase;font-family:inherit;padding:0}
+.cw-cell input:focus{background:var(--ab);outline:none}
+.cw-cell.black{background:var(--hd);border-radius:4px}
+.cw-cell input.correct-cw{background:var(--grl);color:var(--gr)}
+.cw-clues{display:grid;grid-template-columns:1fr 1fr;gap:0 24px}
+.cw-clue{font-size:.85rem;margin-bottom:4px}
+
+/* SEND SECTION */
+.send-section{background:var(--hd);border-radius:var(--bdr);padding:24px;text-align:center;color:#fff;margin-top:32px}
+.send-section h3{font-size:1.1rem;margin-bottom:8px}
+.send-section p{opacity:.8;font-size:.88rem;margin-bottom:16px}
+#send-status-hint{font-size:.82rem;margin-top:8px;color:#c8e6c9}
+
+/* NAV */
+nav.mobile-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--abd);display:flex;justify-content:space-around;padding:6px 0;z-index:200}
+nav.mobile-nav a{display:flex;flex-direction:column;align-items:center;font-size:.65rem;color:var(--hd);text-decoration:none;gap:2px}
+nav.mobile-nav a svg{width:20px;height:20px}
+
+/* UTILITY */
+.tag{display:inline-block;background:var(--ab);color:var(--hd);border-radius:6px;padding:2px 8px;font-size:.78rem;font-weight:700;margin:2px}
+.hint-box{background:#e3f2fd;border-left:4px solid #1976d2;border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:.88rem}
+.warn-box{background:var(--yll);border-left:4px solid var(--yl);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:.88rem}
+.success-box{background:var(--grl);border-left:4px solid var(--gr);border-radius:0 8px 8px 0;padding:12px 16px;margin:12px 0;font-size:.88rem}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.two-col{grid-template-columns:1fr}.memory-grid{grid-template-columns:repeat(3,1fr)}.crossword-grid{grid-template-columns:repeat(8,28px)}.cw-cell,.cw-cell input{width:28px;height:28px}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.sort-item.selected-sort{box-shadow:0 0 0 3px rgba(42,95,168,.35);background:#eef4ff}
+.drag-chip.selected-chip{box-shadow:0 0 0 3px rgba(42,95,168,.35)}
+.validation-msg{margin-top:10px;padding:9px 12px;border-radius:8px;background:var(--yll);color:#5d4037;font-size:.86rem;display:none}
+.quality-table{width:100%;border-collapse:collapse;margin-top:12px}.quality-table th{background:var(--hd);color:#fff}.quality-table td,.quality-table th{padding:8px;border-bottom:1px solid var(--abd);vertical-align:top}.quality-table textarea{min-height:58px}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div style="max-width:860px;margin:0 auto">
+    <div class="sub">SOL Band 1 · Modul 4</div>
+    <h1>Fachstandards und Qualität — Was kennzeichnet gute Schulsozialarbeit?</h1>
+    <div class="pillrow" style="margin-top:12px;gap:10px;align-items:center">
+      <label for="teilnehmer-name" style="font-weight:600;color:#fff">Ihr Name:</label>
+      <input id="teilnehmer-name" type="text" placeholder="Vorname Nachname"
+        style="padding:6px 12px;border-radius:6px;border:none;font-size:1rem;min-width:200px;background:#fff;color:#1a2340"
+        oninput="updateHeaderSendBtn()">
+      <button id="header-send-btn" onclick="sendToSheets()" disabled
+        style="padding:6px 16px;border-radius:6px;border:none;background:#4caf50;color:#fff;font-size:.9rem;font-weight:700;cursor:not-allowed;opacity:.5;transition:opacity .2s">
+        Jetzt senden</button>
+      <span id="header-send-status" style="font-size:.8rem;color:#c8e6c9;margin-left:4px"></span>
+    </div>
+    <div style="font-size:.78rem;color:#c8d8f0;margin-top:4px">Geben Sie Ihren vollständigen Namen ein und erledigen Sie alle Aufgaben, bevor Sie senden.</div>
+    <div id="prog-bar-wrap"><div id="prog-bar"></div></div>
+    <div id="prog-label">Fortschritt: 0 %</div>
+    <div class="pillrow" style="margin-top:8px">
+      <span class="pill" onclick="scrollTo('einordnung')">Einordnung</span>
+      <span class="pill" onclick="scrollTo('vorwissen')">Vorwissen</span>
+      <span class="pill" onclick="scrollTo('qualitaet')">Qualität</span>
+      <span class="pill" onclick="scrollTo('ethikkodex')">Ethikkodex</span>
+      <span class="pill" onclick="scrollTo('abgrenzung')">Abgrenzung</span>
+      <span class="pill" onclick="scrollTo('fachstandards')">Fachstandards</span>
+      <span class="pill" onclick="scrollTo('branching')">Szenario</span>
+      <span class="pill" onclick="scrollTo('aufgaben')">Aufgaben</span>
+      <span class="pill" onclick="scrollTo('fehler')">Fehler</span>
+      <span class="pill" onclick="scrollTo('reflexion')">Reflexion</span>
+      <span class="pill" onclick="scrollTo('gelingen')">Gelingensnachweis</span>
+      <span class="pill" onclick="scrollTo('qualitaetscheck')">Qualitätscheck</span>
+      <span class="pill" onclick="scrollTo('transfer')">Transfer</span>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- 0. EINORDNUNG -->
+<section id="einordnung">
+  <div class="card">
+    <h2>📍 Einordnung in Band 1</h2>
+    <p>Modul 4 baut auf Auftrag, Berufseinstieg sowie Zielgruppen- und Bedarfsanalyse auf. Nun geht es um die Frage: Woran lässt sich erkennen, ob Schulsozialarbeit fachlich gut, begründbar und weiterentwicklungsfähig ist?</p>
+    <p>Fachstandards und Qualitätskriterien schützen nicht nur Kinder und Jugendliche. Sie schützen auch die Fachkraft, weil sie Erwartungen klären, Grenzen begründen und professionelle Entscheidungen nachvollziehbar machen.</p>
+    <div class="hint-box"><strong>Kernfrage dieses Moduls:</strong> Was ist gute Schulsozialarbeit, woran wird sie erkennbar, und wie kann Qualität ohne reine Zahlenlogik fachlich begründet werden?</div>
+  </div>
+</section>
+
+<!-- 1. VORWISSEN -->
+<section id="vorwissen">
+  <div class="card">
+    <h2>🧠 Vorwissen aktivieren <span class="badge badge-blau">Start</span><span class="done-mark">✓</span></h2>
+    <p>Bevor wir beginnen: Wo stehen Sie? Entscheiden Sie spontan — es gibt kein Richtig oder Falsch.</p>
+
+    <h3>Wahr oder falsch? — Erste Einschätzungen</h3>
+    <div id="tf-wrap">
+      <div class="tf-item">
+        <div class="tf-stmt">1. Qualität in der Schulsozialarbeit lässt sich nicht messen — sie ist rein subjektiv erlebbar.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" data-correct="false" onclick="tfAnswer(this,'1')">Wahr</button>
+          <button class="tf-btn" data-correct="true" onclick="tfAnswer(this,'1')">Falsch</button>
+        </div>
+        <div class="tf-feedback" id="tf-fb-1">Qualität ist durchaus beschreibbar und messbar — z.B. über Qualitätskriterien der LAG SSA NI, Fachstandards oder den DBSH-Ethikkodex.</div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-stmt">2. Der DBSH-Ethikkodex gilt als verbindliche rechtliche Grundlage für Schulsozialarbeit.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" data-correct="false" onclick="tfAnswer(this,'2')">Wahr</button>
+          <button class="tf-btn" data-correct="true" onclick="tfAnswer(this,'2')">Falsch</button>
+        </div>
+        <div class="tf-feedback" id="tf-fb-2">Der Ethikkodex ist eine professionelle Orientierung, kein Gesetz. Er formuliert ethische Prinzipien, keine Rechtspflichten.</div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-stmt">3. Fachstandards schützen auch Schulsozialarbeitende — nicht nur Klienten.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" data-correct="true" onclick="tfAnswer(this,'3')">Wahr</button>
+          <button class="tf-btn" data-correct="false" onclick="tfAnswer(this,'3')">Falsch</button>
+        </div>
+        <div class="tf-feedback" id="tf-fb-3">Richtig! Klare Fachstandards legitimieren die Arbeit, sichern Handlungssicherheit und schützen vor willkürlichen Erwartungen.</div>
+      </div>
+      <div class="tf-item">
+        <div class="tf-stmt">4. Evaluation und Dokumentation sind dasselbe wie Qualitätssicherung.</div>
+        <div class="tf-btns">
+          <button class="tf-btn" data-correct="false" onclick="tfAnswer(this,'4')">Wahr</button>
+          <button class="tf-btn" data-correct="true" onclick="tfAnswer(this,'4')">Falsch</button>
+        </div>
+        <div class="tf-feedback" id="tf-fb-4">Evaluation und Dokumentation (Band 9) sind Instrumente — Qualitätssicherung ist das Fundament, das beschreibt, woran gemessen wird.</div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px">Ihre Vorerfahrung (kurz notieren)</h3>
+    <label class="field-lbl">Was verbinden Sie bisher mit dem Begriff „Qualität" in Ihrer eigenen Arbeit?</label>
+    <textarea id="vw1" placeholder="Stichpunkte oder ein Satz genügt…" oninput="saveTxt('vw1')"></textarea>
+    <label class="field-lbl">Kennen Sie konkrete Qualitätskriterien der LAG SSA Niedersachsen? Was wissen Sie bereits?</label>
+    <textarea id="vw2" placeholder="Vorwissen, Vermutungen, offene Fragen…" oninput="saveTxt('vw2')"></textarea>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('vorwissen')">Vorwissen gespeichert ✓</button>
+  </div>
+</section>
+
+<!-- 2. VIDEO-EINSTIEG -->
+<section id="video">
+  <div class="card">
+    <h2>🎬 Video-Einstieg <span class="badge badge-blau">ca. 8 Min.</span><span class="done-mark">✓</span></h2>
+    <p>Das folgende Video gibt einen Überblick über Qualitätssicherung in der Sozialen Arbeit.</p>
+    <div style="border-radius:10px;overflow:hidden;aspect-ratio:16/9;margin-bottom:14px">
+      <iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/Cb0jpj4DBx8"
+        title="Ethik in der Sozialen Arbeit: Dein Menschenbild als Kompass für Entscheidungen"
+        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen style="display:block;width:100%;height:100%"></iframe>
+    </div>
+    <div style="font-size:.8rem;color:#666;margin-bottom:12px">
+      📹 <strong>Ethik in der Sozialen Arbeit: Dein Menschenbild als Kompass für Entscheidungen</strong> · Behandelt den DBSH-Ethikkodex als Praxiswerkzeug
+    </div>
+    <div class="warn-box">Externer Inhalt: Beim Abspielen des Videos wird eine Verbindung zu YouTube/Google hergestellt. Eingebunden ist die datenschutzfreundlichere No-Cookie-Variante.</div>
+    <div class="hint-box">Achten Sie besonders auf: Wie werden Menschenwürde, Gerechtigkeit und Teilhabe als konkrete Handlungsprinzipien beschrieben? Wo spiegeln sich fachliche Qualitätsdimensionen der Schulsozialarbeit?</div>
+    <h3>Kritische Nachfragen zum Video</h3>
+    <label class="field-lbl">Was hat Sie beim Video überrascht oder irritiert?</label>
+    <textarea id="vf1" placeholder="Notiz…" oninput="saveTxt('vf1')"></textarea>
+    <label class="field-lbl">Welche Aussage würden Sie in Ihrer Schule sofort unterschreiben — welche nicht?</label>
+    <textarea id="vf2" placeholder="Notiz…" oninput="saveTxt('vf2')"></textarea>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('video')">Video angesehen ✓</button>
+  </div>
+</section>
+
+<!-- 3. QUALITÄTSKRITERIEN LAG SSA -->
+<section id="qualitaet">
+  <div class="card">
+    <h2>📋 Qualitätsdimensionen fachlicher Schulsozialarbeit<span class="done-mark">✓</span></h2>
+    <p>In Anlehnung an Qualitätskriterien der LAG Schulsozialarbeit Niedersachsen und weitere fachliche Orientierungsrahmen lassen sich acht Qualitätsdimensionen unterscheiden. Klappen Sie auf, lesen Sie, und prüfen Sie am Ende, welche Dimensionen an Ihrer Schule besonders tragfähig oder besonders ausbaubar sind.</p>
+
+    <div class="hint-box">Tipp: Lesen Sie jede Dimension und überlegen Sie: „Wie gut erfüllen wir das an unserer Schule?"</div>
+
+    <div id="lag-acc">
+      <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">1. Strukturqualität — Rahmenbedingungen <span class="acc-arrow">›</span></div><div class="acc-body"><p>Geeignete Räumlichkeiten, ausreichende Stellenprozente, klare Trägerstruktur und Finanzierungssicherheit. Ohne stabile Strukturen ist fachliche Qualität nicht dauerhaft möglich.</p><p><strong>Indikatoren:</strong> Eigener Raum mit Schweigepflichtschutz, ausreichende Stellenanteile im Verhältnis zu Schülerzahl, Bedarfslagen und Schulstruktur; schriftliche Kooperationsvereinbarung.</p></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">2. Konzeptqualität — Fachliche Grundlage <span class="acc-arrow">›</span></div><div class="acc-body"><p>Ein schriftliches Fachkonzept beschreibt Zielgruppen, Angebote, Methoden und Ziele. Es ist Basis für Transparenz und Rechenschaft.</p><p><strong>Indikatoren:</strong> Schriftliches Konzept vorhanden, regelmäßig aktualisiert, schulöffentlich zugänglich.</p></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">3. Prozessqualität — Fachliches Handeln <span class="acc-arrow">›</span></div><div class="acc-body"><p>Beratung, Gruppenarbeit, Vernetzung — all das folgt fachlichen Standards. Dazu gehören Erstgespräch, Dokumentation, Zielformulierung und Abschluss.</p><p><strong>Indikatoren:</strong> Standardisiertes Erstgesprächsformat, Fallführung, kollegiale Beratung.</p></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">4. Ergebnisqualität — Wirkungen <span class="acc-arrow">›</span></div><div class="acc-body"><p>Zielgruppen profitieren messbar: Kompetenzgewinn, Schulverbleib, Entspannung von Konflikten. Wirkungen werden — soweit möglich — systematisch erhoben.</p><p><strong>Indikatoren:</strong> Zielvereinbarungen, Abschlusseinschätzung, Jahresbericht mit Fallzahlen.</p></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">5. Kooperationsqualität — Vernetzung <span class="acc-arrow">›</span></div><div class="acc-body"><p>Schulsozialarbeit ist eingebettet in das Schulsystem und den Sozialraum. Kooperationen mit Lehrkräften, Schulleitung, Jugendhilfe und externen Stellen sind klar geregelt.</p><p><strong>Indikatoren:</strong> Kooperationsvereinbarungen, Teilnahme an Gremien, Netzwerkkarte aktuell.</p></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">6. Fachkompetenzqualität — Professionelle Entwicklung <span class="acc-arrow">›</span></div><div class="acc-body"><p>Regelmäßige Fortbildung, Supervision und Fachberatung sichern die Professionalität. SSA-Fachkräfte halten ihren Wissensstand aktuell.</p><p><strong>Indikatoren:</strong> regelmäßige Fortbildung, verbindlich eingeplante Supervision oder kollegiale Fachberatung, Zugang zu aktueller Fachliteratur.</p></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">7. Partizipationsqualität — Beteiligung <span class="acc-arrow">›</span></div><div class="acc-body"><p>Kinder und Jugendliche werden an der Gestaltung von Angeboten beteiligt. Beschwerdemöglichkeiten existieren und werden genutzt.</p><p><strong>Indikatoren:</strong> Befragungen, SuS-Beteiligung bei Angebotsplanung, niedrigschwellige Beschwerdewege.</p></div></div>
+      <div class="acc-item"><div class="acc-head" onclick="toggleAcc(this)">8. Ethik- und Haltungsqualität — Professionelle Haltung <span class="acc-arrow">›</span></div><div class="acc-body"><p>Respekt, Parteilichkeit für Kinder, Vertraulichkeit und Anti-Diskriminierung als gelebte Haltung — nicht nur auf dem Papier.</p><p><strong>Indikatoren:</strong> DBSH-Ethikkodex bekannt und reflektiert, Fallreflexion aus Ethikperspektive.</p></div></div>
+    </div>
+
+    <h3 style="margin-top:20px">Information Wall — Auf einen Blick</h3>
+    <div class="info-wall">
+      <div class="info-tile"><h4>Strukturqualität</h4><p>Raum, Stellen, Finanzierung</p><div class="info-tile-num">1</div></div>
+      <div class="info-tile"><h4>Konzeptqualität</h4><p>Schriftliches Fachkonzept</p><div class="info-tile-num">2</div></div>
+      <div class="info-tile"><h4>Prozessqualität</h4><p>Fachliches Handeln</p><div class="info-tile-num">3</div></div>
+      <div class="info-tile"><h4>Ergebnisqualität</h4><p>Messbare Wirkungen</p><div class="info-tile-num">4</div></div>
+      <div class="info-tile"><h4>Kooperation</h4><p>Vernetzung & Gremien</p><div class="info-tile-num">5</div></div>
+      <div class="info-tile"><h4>Fachkompetenz</h4><p>Fortbildung, Supervision</p><div class="info-tile-num">6</div></div>
+      <div class="info-tile"><h4>Partizipation</h4><p>Beteiligung der SuS</p><div class="info-tile-num">7</div></div>
+      <div class="info-tile"><h4>Ethik & Haltung</h4><p>Gelebte Grundhaltung</p><div class="info-tile-num">8</div></div>
+    </div>
+
+    <label class="field-lbl" style="margin-top:18px">Welche der 8 Dimensionen sehen Sie an Ihrer Schule als besonders stark / besonders ausbaubar?</label>
+    <textarea id="lag_reflex" placeholder="Ihre Einschätzung…" oninput="saveTxt('lag_reflex')"></textarea>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('qualitaet')">Qualitätsdimensionen erarbeitet ✓</button>
+  </div>
+</section>
+
+<!-- 4. DBSH-ETHIKKODEX -->
+<section id="ethikkodex">
+  <div class="card">
+    <h2>⚖️ DBSH-Ethikkodex als Orientierung<span class="done-mark">✓</span></h2>
+    <p>Der Deutsche Berufsverband Soziale Arbeit (DBSH) hat einen Ethikkodex verabschiedet, der auf internationalen Grundsätzen basiert. Der Ethikkodex ersetzt keine gesetzlichen Vorgaben, keine Kinderschutzverfahren und keine Datenschutzregeln. Er hilft aber, fachliche Entscheidungen ethisch zu prüfen: Welche Rechte, Interessen, Schutzbedarfe und Machtverhältnisse sind berührt?</p>
+    <p>Drehen Sie die Karten um — von Prinzip zu konkreter Bedeutung.</p>
+
+    <div class="flip-grid" id="ethik-cards">
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">Menschenwürde & Menschenrechte</div>
+          <div class="flip-back">Jede Person hat unveräußerliche Würde. SSA handelt stets respektvoll — unabhängig von Verhalten, Herkunft oder Status.</div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">Soziale Gerechtigkeit</div>
+          <div class="flip-back">SSA wirkt Benachteiligung entgegen, benennt strukturelle Probleme und setzt sich für gerechte Verhältnisse ein.</div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">Professionelle Integrität</div>
+          <div class="flip-back">Fachkräfte handeln kompetent, ehrlich und rechenschaftspflichtig. Eigene Grenzen werden erkannt und kommuniziert.</div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">Selbstbestimmung</div>
+          <div class="flip-back">Klienten entscheiden selbst über ihr Leben. SSA begleitet — ohne zu bevormunden oder Lösungen aufzuzwingen.</div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">Partizipation</div>
+          <div class="flip-back">Betroffene werden an Entscheidungen beteiligt, die sie selbst betreffen — auf allen Ebenen der Hilfegestaltung.</div>
+        </div>
+      </div>
+      <div class="flip-card" onclick="this.classList.toggle('flipped')">
+        <div class="flip-inner">
+          <div class="flip-front">Ganzheitlichkeit</div>
+          <div class="flip-back">Menschen werden in ihrer gesamten Lebenssituation gesehen — Familie, Schule, Sozialraum, individuelle Geschichte.</div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:.8rem;color:#888;margin-top:8px;text-align:center">▼ Karten anklicken zum Umdrehen</p>
+
+    <h3 style="margin-top:22px">Ethikkodex im Alltag — Lückentext</h3>
+    <p style="font-size:.88rem;margin-bottom:8px">Ergänzen Sie die Begriffe:</p>
+    <div class="blank-text">
+      Der Ethikkodex des DBSH orientiert sich an den internationalen Prinzipien Sozialer Arbeit. Er beschreibt keine
+      <input class="blank" id="b1" placeholder="?" data-ans="Rechtspflicht" oninput="checkBlank(this)">
+      , sondern eine professionelle
+      <input class="blank" id="b2" placeholder="?" data-ans="Verpflichtung" oninput="checkBlank(this)">.
+      Schulsozialarbeitende nutzen ihn zur
+      <input class="blank" id="b3" placeholder="?" data-ans="Reflexion" oninput="checkBlank(this)">
+      eigener Handlungen. Besonders in ethischen Konflikten — etwa zwischen Schweigepflicht und
+      <input class="blank" id="b4" placeholder="?" data-ans="Kindeswohlgefährdung" oninput="checkBlank(this)">
+      — gibt er Orientierung ohne fertige Antworten.
+    </div>
+    <div style="font-size:.8rem;color:#888;margin-top:6px">Begriffe: <em>Rechtspflicht · Verpflichtung · Reflexion · Kindeswohlgefährdung</em></div>
+
+    <label class="field-lbl" style="margin-top:18px">Welches der sechs Prinzipien ist in Ihrem Berufsalltag am schwierigsten umzusetzen — und warum?</label>
+    <textarea id="ethik_reflex" placeholder="Ihre Einschätzung…" oninput="saveTxt('ethik_reflex')"></textarea>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('ethikkodex')">Ethikkodex erarbeitet ✓</button>
+  </div>
+</section>
+
+<!-- 5. ABGRENZUNG BAND 9 -->
+<section id="abgrenzung">
+  <div class="card">
+    <h2>🔀 Abgrenzung zu Band 9: Fundament vs. Instrument<span class="done-mark">✓</span></h2>
+    <p>Band 9 behandelt <strong>Evaluation und Dokumentation als Instrumente</strong>. Dieses Modul legt das <strong>Fundament</strong>: Woran messen wir überhaupt? Sortieren Sie die Begriffe richtig zu.</p>
+
+    <div class="drag-bank" id="drag-bank">
+      <div class="drag-chip" draggable="true" data-item="Qualitätskriterien LAG SSA" data-target="fundament">Qualitätskriterien LAG SSA</div>
+      <div class="drag-chip" draggable="true" data-item="Falldokumentation" data-target="instrument">Falldokumentation</div>
+      <div class="drag-chip" draggable="true" data-item="DBSH-Ethikkodex" data-target="fundament">DBSH-Ethikkodex</div>
+      <div class="drag-chip" draggable="true" data-item="Jahresbericht" data-target="instrument">Jahresbericht</div>
+      <div class="drag-chip" draggable="true" data-item="Fachstandards" data-target="fundament">Fachstandards</div>
+      <div class="drag-chip" draggable="true" data-item="Befragung der SuS" data-target="instrument">Befragung der SuS</div>
+      <div class="drag-chip" draggable="true" data-item="Professionsverständnis" data-target="fundament">Professionsverständnis</div>
+      <div class="drag-chip" draggable="true" data-item="Wirkungsevaluation" data-target="instrument">Wirkungsevaluation</div>
+    </div>
+
+    <div class="drag-area" style="margin-top:14px">
+      <div class="drag-col">
+        <div class="drag-col-title fundament">📌 Fundament (Modul 4)</div>
+        <div class="drag-zone" id="zone-fundament" data-zone="fundament" ondragover="dragOver(event)" ondrop="dropItem(event)" onclick="clickDropZone(this)">
+          <span style="color:#aaa;font-size:.82rem">Begriffe hier ablegen…</span>
+        </div>
+      </div>
+      <div class="drag-col">
+        <div class="drag-col-title instrument">🔧 Instrument (Band 9)</div>
+        <div class="drag-zone" id="zone-instrument" data-zone="instrument" ondragover="dragOver(event)" ondrop="dropItem(event)" onclick="clickDropZone(this)">
+          <span style="color:#aaa;font-size:.82rem">Begriffe hier ablegen…</span>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="margin-top:12px" onclick="checkDrag()">Zuordnung prüfen</button>
+    <div id="drag-result" style="margin-top:10px;display:none"></div>
+
+    <div class="hint-box" style="margin-top:14px">
+      <strong>Merkformel:</strong> Das Fundament fragt <em>„Was ist gute Arbeit?"</em> — das Instrument fragt <em>„Wie dokumentieren und messen wir, ob wir es erreicht haben?"</em>
+    </div>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('abgrenzung')">Abgrenzung verstanden ✓</button>
+  </div>
+</section>
+
+<!-- 6. FACHSTANDARDS-TIMELINE -->
+<section id="fachstandards">
+  <div class="card">
+    <h2>📌 Fachstandards im Berufsalltag — Schritt für Schritt<span class="done-mark">✓</span></h2>
+    <p>Fachstandards sind keine abstrakten Papiere — sie strukturieren konkrete Handlungsschritte. Hier sehen Sie, wie Qualitätssicherung im Alltag aussieht:</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-step">Schritt 1</div>
+          <div class="tl-title">Konzept verschriftlichen</div>
+          <div class="tl-desc">Das Fachkonzept beschreibt Zielgruppen, Angebote und Methoden. Es ist Grundlage für alle weiteren Qualitätsgespräche.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-step">Schritt 2</div>
+          <div class="tl-title">Kooperationsvertrag schließen</div>
+          <div class="tl-desc">Mit Träger und Schule werden Rollen, Ressourcen und Erwartungen schriftlich vereinbart. So entsteht Verbindlichkeit.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-step">Schritt 3</div>
+          <div class="tl-title">Fallarbeit standardisieren</div>
+          <div class="tl-desc">Erstgespräch, Zielformulierung, Verlaufsdokumentation, Abschluss — ein roter Faden durch jeden Beratungsfall.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-step">Schritt 4</div>
+          <div class="tl-title">Supervision und Fachberatung sichern</div>
+          <div class="tl-desc">Regelmäßige Supervision ist kein Luxus — sie ist Bestandteil professioneller Standards und schützt vor Burnout.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-step">Schritt 5</div>
+          <div class="tl-title">Qualitätsgespräch mit Schulleitung</div>
+          <div class="tl-desc">Jährlich: Rückmeldung zu Angeboten, Bedarfen und Wirkungen — auf Basis des Jahresberichts und des Fachkonzepts.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-content">
+          <div class="tl-step">Schritt 6</div>
+          <div class="tl-title">Konzept weiterentwickeln</div>
+          <div class="tl-desc">Qualität ist kein Zustand — sie ist ein Prozess. Das Konzept wird auf Basis der Reflexion aktualisiert.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:22px">Paragraphen sortieren — Qualitätszirkel</h3>
+    <p style="font-size:.88rem;margin-bottom:4px">Bringen Sie die Schritte eines Qualitätszirkels in die richtige Reihenfolge. Ziehen und ablegen:</p>
+    <div class="sort-container" id="sort-list">
+      <div class="sort-item" draggable="true" data-pos="3" ondragstart="sortDragStart(event)" ondragover="sortDragOver(event)" ondrop="sortDrop(event)"><span class="sort-handle">⠿</span><span class="sort-num">?</span>Maßnahmen planen und umsetzen</div>
+      <div class="sort-item" draggable="true" data-pos="1" ondragstart="sortDragStart(event)" ondragover="sortDragOver(event)" ondrop="sortDrop(event)"><span class="sort-handle">⠿</span><span class="sort-num">?</span>Ist-Stand erheben und analysieren</div>
+      <div class="sort-item" draggable="true" data-pos="4" ondragstart="sortDragStart(event)" ondragover="sortDragOver(event)" ondrop="sortDrop(event)"><span class="sort-handle">⠿</span><span class="sort-num">?</span>Wirkungen überprüfen (Evaluation)</div>
+      <div class="sort-item" draggable="true" data-pos="2" ondragstart="sortDragStart(event)" ondragover="sortDragOver(event)" ondrop="sortDrop(event)"><span class="sort-handle">⠿</span><span class="sort-num">?</span>Ziele definieren (Soll-Zustand)</div>
+      <div class="sort-item" draggable="true" data-pos="5" ondragstart="sortDragStart(event)" ondragover="sortDragOver(event)" ondrop="sortDrop(event)"><span class="sort-handle">⠿</span><span class="sort-num">?</span>Erkenntnisse einarbeiten (Konzept anpassen)</div>
+    </div>
+    <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="margin-top:10px" onclick="checkSort()">Reihenfolge prüfen</button>
+    <div id="sort-result" style="margin-top:8px"></div>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('fachstandards')">Fachstandards erarbeitet ✓</button>
+  </div>
+</section>
+
+<!-- 7. BRANCHING SZENARIO -->
+<section id="branching">
+  <div class="card">
+    <h2>🌿 Branching-Szenario: Der Qualitätscheck<span class="done-mark">✓</span></h2>
+    <p>Frau Müller arbeitet seit 3 Jahren als Schulsozialarbeiterin. Die Schulleitung möchte ein Qualitätsgespräch führen und fragt: „Was macht eigentlich gute Schulsozialarbeit aus?" Wie reagiert Frau Müller?</p>
+
+    <div id="branch-step-0" class="branch-box">
+      <p><strong>Situation:</strong> Die Schulleitung kommt unangekündigt und stellt die Frage direkt. Frau Müller hat kein schriftliches Konzept. Was tut sie?</p>
+      <div class="branch-opts">
+        <div class="branch-opt" onclick="showBranch('b0','a')">A) Sie beschreibt mündlich ihre Tätigkeiten und verweist auf die gute Stimmung unter den SuS.</div>
+        <div class="branch-opt" onclick="showBranch('b0','b')">B) Sie schlägt vor, in zwei Wochen ein Gespräch auf Basis eines schriftlichen Kurzkonzepts zu führen.</div>
+        <div class="branch-opt" onclick="showBranch('b0','c')">C) Sie nennt die 8 Qualitätsdimensionen der LAG SSA und beschreibt, wo die Schule steht.</div>
+      </div>
+      <div id="branch-b0-a" class="branch-result bad">❌ Mündliche Schilderungen ohne Konzept sind schwer nachvollziehbar und wenig professionell. Die Schulleitung kann Qualität nicht einschätzen.</div>
+      <div id="branch-b0-b" class="branch-result ok">🟡 Gut — Zeit zu gewinnen ist vernünftig. Aber: Ein Kurzkonzept sollte eigentlich schon vorliegen! Zeigen Sie Frau Müller den nächsten Schritt: <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="margin-top:8px;font-size:.82rem" onclick="showStep(1)">Weiter →</button></div>
+      <div id="branch-b0-c" class="branch-result good">✅ Hervorragend! Sie nutzt einen anerkannten Fachrahmen und zeigt professionelle Orientierung. Weiter: <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="margin-top:8px;font-size:.82rem" onclick="showStep(2)">Nächste Situation →</button></div>
+    </div>
+
+    <div id="branch-step-1" class="branch-box" style="display:none">
+      <p><strong>Nächste Situation:</strong> Die Schulleitung fragt: „Wo dokumentieren Sie Ihren Qualitätsanspruch?" Frau Müller hat ein Konzept — aber es ist 4 Jahre alt.</p>
+      <div class="branch-opts">
+        <div class="branch-opt" onclick="showBranch('b1','a')">A) Sie zeigt das alte Konzept und sagt, es sei noch gültig.</div>
+        <div class="branch-opt" onclick="showBranch('b1','b')">B) Sie gesteht, dass das Konzept veraltet ist, und schlägt eine gemeinsame Überarbeitungsrunde vor.</div>
+        <div class="branch-opt" onclick="showBranch('b1','c')">C) Sie leitet das Gespräch auf Fallzahlen um, um von der Frage abzulenken.</div>
+      </div>
+      <div id="branch-b1-a" class="branch-result bad">❌ Ein veraltetes Konzept signalisiert mangelnde Qualitätsorientierung. Indikatoren und Angebote haben sich verändert.</div>
+      <div id="branch-b1-b" class="branch-result good">✅ Ehrlichkeit und Transparenz! Schulleitung schätzt Initiative. Professionelle Integrität (DBSH) zeigt sich genau hier.</div>
+      <div id="branch-b1-c" class="branch-result bad">❌ Ablenkung untergräbt das Vertrauen. Schulleitung merkt, dass das Konzept fehlt — und zieht Schlüsse.</div>
+    </div>
+
+    <div id="branch-step-2" class="branch-box" style="display:none">
+      <p><strong>Letzte Situation:</strong> Die Schulleitung sagt: „Evaluation und Dokumentation sind dasselbe wie Qualität, oder?" Was antwortet Frau Müller?</p>
+      <div class="branch-opts">
+        <div class="branch-opt" onclick="showBranch('b2','a')">A) „Ja, genau — wenn wir dokumentieren, sichern wir Qualität."</div>
+        <div class="branch-opt" onclick="showBranch('b2','b')">B) „Nein — Dokumentation ist ein Instrument. Qualität entsteht durch das Fundament: Fachstandards, Ethik, Professionsverständnis."</div>
+        <div class="branch-opt" onclick="showBranch('b2','c')">C) „Das ist eine Frage für den Träger."</div>
+      </div>
+      <div id="branch-b2-a" class="branch-result bad">❌ Dokumentation ist wichtig, aber kein Garant für Qualität. Man kann viel dokumentieren und trotzdem schlecht arbeiten.</div>
+      <div id="branch-b2-b" class="branch-result good">✅ Perfekt! Das ist genau der Kern dieses Moduls — und Frau Müller zeigt professionelle Klarheit.</div>
+      <div id="branch-b2-c" class="branch-result bad">❌ Diese Frage liegt klar im Fachbereich der Schulsozialarbeit. Delegation signalisiert fehlende Klarheit.</div>
+    </div>
+
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('branching')">Szenario abgeschlossen ✓</button>
+  </div>
+</section>
+
+<!-- 8. INTERAKTIVE AUFGABEN -->
+<section id="aufgaben">
+  <div class="card">
+    <h2>✏️ Interaktive Aufgaben<span class="done-mark">✓</span></h2>
+
+    <!-- Multiple Choice -->
+    <h3>A) Multiple Choice — Qualitätswissen prüfen</h3>
+    <div class="mc-item">
+      <p><strong>1. Was unterscheidet Ergebnisqualität von Prozessqualität?</strong></p>
+      <div class="mc-opts" id="mc1">
+        <label class="mc-opt"><input type="radio" name="mc1"> Ergebnisqualität beschreibt das fachliche Handeln im Einzelfall.</label>
+        <label class="mc-opt"><input type="radio" name="mc1"> Ergebnisqualität fragt nach Wirkungen — was hat die Arbeit bei den Zielgruppen bewirkt?</label>
+        <label class="mc-opt"><input type="radio" name="mc1"> Ergebnisqualität und Prozessqualität sind in der Praxis identisch.</label>
+      </div>
+      <button class="btn btn-outline mc-check-btn" onclick="checkMC('mc1',1)">Prüfen</button>
+      <div id="mc1-fb" style="margin-top:8px;font-size:.87rem"></div>
+    </div>
+    <div class="mc-item">
+      <p><strong>2. Welche Aussage zum DBSH-Ethikkodex ist korrekt? (Mehrfachauswahl möglich)</strong></p>
+      <div class="mc-opts" id="mc2">
+        <label class="mc-opt"><input type="checkbox" name="mc2" value="0"> Er ersetzt das SGB VIII als Rechtsgrundlage.</label>
+        <label class="mc-opt"><input type="checkbox" name="mc2" value="1"> Er gibt ethische Orientierung in Konfliktlagen.</label>
+        <label class="mc-opt"><input type="checkbox" name="mc2" value="2"> Er basiert auf internationalen Prinzipien Sozialer Arbeit.</label>
+        <label class="mc-opt"><input type="checkbox" name="mc2" value="3"> Er ist ausschließlich für stationäre Jugendhilfe relevant.</label>
+      </div>
+      <button class="btn btn-outline mc-check-btn" onclick="checkMCMulti('mc2',[1,2])">Prüfen</button>
+      <div id="mc2-fb" style="margin-top:8px;font-size:.87rem"></div>
+    </div>
+    <div class="mc-item">
+      <p><strong>3. Was ist laut LAG SSA NI ein Indikator für Strukturqualität?</strong></p>
+      <div class="mc-opts" id="mc3">
+        <label class="mc-opt"><input type="radio" name="mc3"> Hohe Fallzahlen im Jahresbericht</label>
+        <label class="mc-opt"><input type="radio" name="mc3"> Ein eigener Raum mit Schutz der Vertraulichkeit</label>
+        <label class="mc-opt"><input type="radio" name="mc3"> Gute Beziehung zur Schulleitung</label>
+      </div>
+      <button class="btn btn-outline mc-check-btn" onclick="checkMC('mc3',1)">Prüfen</button>
+      <div id="mc3-fb" style="margin-top:8px;font-size:.87rem"></div>
+    </div>
+
+    <!-- Mark the Words -->
+    <h3 style="margin-top:22px">B) Wörter markieren — Qualitätsbegriffe finden</h3>
+    <p style="font-size:.88rem;margin-bottom:8px">Klicken Sie alle Begriffe an, die direkt zu „Fachstandards und Qualität" gehören (8 Begriffe):</p>
+    <div class="marktext" id="marktext">
+      <span class="markword" data-correct="0" onclick="toggleMark(this)">Jahreszeugnis</span> ·
+      <span class="markword" data-correct="1" onclick="toggleMark(this)">Ethikkodex</span> ·
+      <span class="markword" data-correct="0" onclick="toggleMark(this)">Lernziel</span> ·
+      <span class="markword" data-correct="1" onclick="toggleMark(this)">Strukturqualität</span> ·
+      <span class="markword" data-correct="0" onclick="toggleMark(this)">Klassenarbeit</span> ·
+      <span class="markword" data-correct="1" onclick="toggleMark(this)">Prozessqualität</span> ·
+      <span class="markword" data-correct="0" onclick="toggleMark(this)">Stundenplan</span> ·
+      <span class="markword" data-correct="1" onclick="toggleMark(this)">Fachkonzept</span> ·
+      <span class="markword" data-correct="1" onclick="toggleMark(this)">Supervision</span> ·
+      <span class="markword" data-correct="0" onclick="toggleMark(this)">Hausordnung</span> ·
+      <span class="markword" data-correct="1" onclick="toggleMark(this)">LAG SSA</span> ·
+      <span class="markword" data-correct="0" onclick="toggleMark(this)">Schulkonferenz</span> ·
+      <span class="markword" data-correct="1" onclick="toggleMark(this)">Kooperationsvertrag</span> ·
+      <span class="markword" data-correct="0" onclick="toggleMark(this)">Vertretungsplan</span> ·
+      <span class="markword" data-correct="1" onclick="toggleMark(this)">Ergebnisqualität</span> ·
+      <span class="markword" data-correct="0" onclick="toggleMark(this)">Cafeteria</span>
+    </div>
+    <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="margin-top:10px" onclick="checkMarkWords()">Markierung prüfen</button>
+    <div id="mark-result" style="margin-top:8px;font-size:.87rem"></div>
+
+    <!-- Memory Game -->
+    <h3 style="margin-top:22px">C) Memory — Begriff und Definition verbinden</h3>
+    <p style="font-size:.88rem;margin-bottom:8px">Finden Sie die passenden Paare (Begriff ↔ Erklärung). Klicken Sie zwei Karten auf:</p>
+    <div class="memory-grid" id="mem-grid"></div>
+    <div id="mem-result" style="margin-top:8px;font-size:.87rem;font-weight:700"></div>
+
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:20px" onclick="doneSection('aufgaben')">Aufgaben abgeschlossen ✓</button>
+  </div>
+</section>
+
+<!-- 9. FEHLERWERKSTATT -->
+<section id="fehler">
+  <div class="card">
+    <h2>🔧 Fehlerwerkstatt — Typische Stolpersteine<span class="done-mark">✓</span></h2>
+    <p>Diese Situationen kennen viele Schulsozialarbeitende. Klicken Sie auf „Lösung zeigen" und überlegen Sie: Wie wäre es fachlich korrekt?</p>
+
+    <div class="fehler-item">
+      <div class="fehler-szenario">❌ Szenario 1: Frau K. sagt: „Ich brauche kein schriftliches Konzept — alle wissen, was ich mache."</div>
+      <textarea id="fw1" placeholder="Was ist hier fachlich problematisch?" oninput="saveTxt('fw1')"></textarea>
+      <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="font-size:.82rem" onclick="toggleFehler(this)">Analyse zeigen</button>
+      <div class="fehler-reveal">Ohne schriftliches Konzept fehlt die Grundlage für Qualitätsgespräche, Rechenschaft und Weiterentwicklung. Konzeptqualität ist eine der 8 Dimensionen — nicht optional.</div>
+    </div>
+    <div class="fehler-item">
+      <div class="fehler-szenario">❌ Szenario 2: Herr T. nimmt seit 2 Jahren keine Supervision, weil „keine Zeit" ist.</div>
+      <textarea id="fw2" placeholder="Was ist hier fachlich problematisch?" oninput="saveTxt('fw2')"></textarea>
+      <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="font-size:.82rem" onclick="toggleFehler(this)">Analyse zeigen</button>
+      <div class="fehler-reveal">Supervision ist Bestandteil der Fachkompetenzqualität und schützt vor Burnout. Kein-Zeit als Argument unterläuft Fachstandards — und ist oft ein Zeichen von zu hoher Belastung, die genau Supervision erfordert.</div>
+    </div>
+    <div class="fehler-item">
+      <div class="fehler-szenario">❌ Szenario 3: Die Schulleitung entscheidet, welche Kinder Schulsozialarbeit „bekommen" — ohne Rücksprache.</div>
+      <textarea id="fw3" placeholder="Was ist hier fachlich problematisch?" oninput="saveTxt('fw3')"></textarea>
+      <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="font-size:.82rem" onclick="toggleFehler(this)">Analyse zeigen</button>
+      <div class="fehler-reveal">Das verletzt das Prinzip der Selbstbestimmung und der professionellen Unabhängigkeit. SSA entscheidet auf fachlicher Basis — nicht nach Schulleitung-Präferenzen. Rollenklarheit ist Teil der Strukturqualität.</div>
+    </div>
+    <div class="fehler-item">
+      <div class="fehler-szenario">❌ Szenario 4: Eine Fachkraft verwechselt Partizipation mit „SuS entscheiden alles selbst".</div>
+      <textarea id="fw4" placeholder="Was ist hier fachlich problematisch?" oninput="saveTxt('fw4')"></textarea>
+      <button class="btn btn-outline" aria-label="Aufgabe prüfen" style="font-size:.82rem" onclick="toggleFehler(this)">Analyse zeigen</button>
+      <div class="fehler-reveal">Partizipation bedeutet angemessene Beteiligung — altersgerecht, ressourcenorientiert, aber mit klarer Fachlichkeit als Rahmen. SSA begleitet und ermöglicht — sie gibt die Verantwortung nicht vollständig ab.</div>
+    </div>
+
+    <label class="field-lbl" style="margin-top:16px">Kennen Sie ähnliche Situationen aus Ihrem eigenen Berufsalltag? Was haben Sie gelernt?</label>
+    <textarea id="fehler_reflex" placeholder="Eigene Erfahrungen (freiwillig)…" oninput="saveTxt('fehler_reflex')"></textarea>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('fehler')">Fehlerwerkstatt abgeschlossen ✓</button>
+  </div>
+</section>
+
+<!-- 10. REFLEXION -->
+<section id="reflexion">
+  <div class="card">
+    <h2>🪞 Reflexion — Wo stehen Sie?<span class="done-mark">✓</span></h2>
+    <p>Schätzen Sie sich selbst ein: Wie sicher fühlen Sie sich in diesen Kompetenzbereichen?</p>
+
+    <div class="ampel-grid" id="ampel-wrap">
+      <div class="ampel-item">
+        <div class="ampel-label">8 Qualitätsdimensionen der LAG SSA benennen</div>
+        <div class="ampel-btns">
+          <button class="ampel-btn g" onclick="setAmpel(this,'a1','g')">🟢 Sicher</button>
+          <button class="ampel-btn y" onclick="setAmpel(this,'a1','y')">🟡 Unsicher</button>
+          <button class="ampel-btn r" onclick="setAmpel(this,'a1','r')">🔴 Vertiefen</button>
+        </div>
+      </div>
+      <div class="ampel-item">
+        <div class="ampel-label">DBSH-Ethikkodex im Fallkontext anwenden</div>
+        <div class="ampel-btns">
+          <button class="ampel-btn g" onclick="setAmpel(this,'a2','g')">🟢 Sicher</button>
+          <button class="ampel-btn y" onclick="setAmpel(this,'a2','y')">🟡 Unsicher</button>
+          <button class="ampel-btn r" onclick="setAmpel(this,'a2','r')">🔴 Vertiefen</button>
+        </div>
+      </div>
+      <div class="ampel-item">
+        <div class="ampel-label">Fundament von Instrument unterscheiden</div>
+        <div class="ampel-btns">
+          <button class="ampel-btn g" onclick="setAmpel(this,'a3','g')">🟢 Sicher</button>
+          <button class="ampel-btn y" onclick="setAmpel(this,'a3','y')">🟡 Unsicher</button>
+          <button class="ampel-btn r" onclick="setAmpel(this,'a3','r')">🔴 Vertiefen</button>
+        </div>
+      </div>
+      <div class="ampel-item">
+        <div class="ampel-label">Qualitätsgespräch mit Schulleitung führen</div>
+        <div class="ampel-btns">
+          <button class="ampel-btn g" onclick="setAmpel(this,'a4','g')">🟢 Sicher</button>
+          <button class="ampel-btn y" onclick="setAmpel(this,'a4','y')">🟡 Unsicher</button>
+          <button class="ampel-btn r" onclick="setAmpel(this,'a4','r')">🔴 Vertiefen</button>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:20px">Reflexionsfragen</h3>
+    <label class="field-lbl">Was nehmen Sie aus diesem Modul als wichtigste Erkenntnis mit?</label>
+    <textarea id="r1" placeholder="Ihre Antwort…" oninput="saveTxt('r1')"></textarea>
+    <label class="field-lbl">Welche der 8 Qualitätsdimensionen möchten Sie an Ihrer Schule als Nächstes stärken?</label>
+    <textarea id="r2" placeholder="Ihre Antwort…" oninput="saveTxt('r2')"></textarea>
+    <label class="field-lbl">Wie würden Sie einem Kollegen in drei Sätzen erklären, warum Fachstandards wichtig sind?</label>
+    <textarea id="r3" placeholder="Ihre Antwort…" oninput="saveTxt('r3')"></textarea>
+    <label class="field-lbl">Rückblick: Was sehen Sie nach dem Modul anders als zu Beginn?</label>
+    <textarea id="vw_rueckblick" placeholder="Rückblick auf meine erste Einschätzung ..." oninput="saveTxt('vw_rueckblick')"></textarea>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('reflexion')">Reflexion abgeschlossen ✓</button>
+  </div>
+</section>
+
+<!-- 11. GELINGENSNACHWEIS -->
+<section id="gelingen">
+  <div class="card">
+    <h2>🏆 Gelingensnachweis<span class="done-mark">✓</span></h2>
+    <div class="success-box">Sie haben alle Inhalte des Moduls erarbeitet. Jetzt zeigen Sie, was Sie verstanden haben.</div>
+    <h3>Transfer-Essay (mind. 5 Sätze)</h3>
+    <p>Beschreiben Sie: <strong>Wie sichern Sie Qualität in Ihrer Schulsozialarbeit — und wie möchten Sie das in Zukunft weiterentwickeln?</strong> Beziehen Sie sich auf mindestens zwei der acht Qualitätsdimensionen und einen Aspekt des Ethikkodex.</p>
+    <textarea id="g_text" placeholder="Ihr Transfer-Essay…" rows="7" oninput="saveTxt('g_text')"></textarea>
+
+    <div style="margin-top:20px;background:#fff;border:1px solid var(--abd);border-radius:14px;padding:16px 18px">
+      <button id="send-btn-2" onclick="sendToSheets()" class="btn btn-green" disabled style="width:100%">↑ Ergebnisse an Google Sheets senden</button>
+      <div id="send-hint-2" style="font-size:.82rem;color:#888;margin-top:6px;text-align:center">Bitte zuerst Namen eingeben und alle Aufgaben erledigen.</div>
+    </div>
+
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('gelingen')">Gelingensnachweis eingereicht ✓</button>
+  </div>
+</section>
+
+
+
+<!-- 12. QUALITÄTSCHECK -->
+<section id="qualitaetscheck">
+  <div class="card">
+    <h2>✅ Praxisprodukt — Mein Qualitätscheck<span class="done-mark">✓</span></h2>
+    <p>Nutzen Sie diesen Check als kompaktes Praxisinstrument für die eigene Schulsozialarbeit. Es geht nicht um perfekte Antworten, sondern um eine fachlich begründete Standortbestimmung.</p>
+    <table class="quality-table">
+      <thead><tr><th>Bereich</th><th>Leitfrage</th><th>Meine Einschätzung</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Strukturqualität</strong></td><td>Stimmen Raum, Zeit, Auftrag und Zuständigkeit?</td><td><textarea id="qc1" oninput="saveTxt('qc1')" placeholder="Meine Einschätzung ..."></textarea></td></tr>
+        <tr><td><strong>Konzeptqualität</strong></td><td>Gibt es ein aktuelles Fachkonzept?</td><td><textarea id="qc2" oninput="saveTxt('qc2')" placeholder="Meine Einschätzung ..."></textarea></td></tr>
+        <tr><td><strong>Prozessqualität</strong></td><td>Sind Beratungsabläufe fachlich beschrieben?</td><td><textarea id="qc3" oninput="saveTxt('qc3')" placeholder="Meine Einschätzung ..."></textarea></td></tr>
+        <tr><td><strong>Kooperationsqualität</strong></td><td>Sind Rollen mit Schulleitung und Träger geklärt?</td><td><textarea id="qc4" oninput="saveTxt('qc4')" placeholder="Meine Einschätzung ..."></textarea></td></tr>
+        <tr><td><strong>Partizipation</strong></td><td>Werden Kinder und Jugendliche beteiligt?</td><td><textarea id="qc5" oninput="saveTxt('qc5')" placeholder="Meine Einschätzung ..."></textarea></td></tr>
+        <tr><td><strong>Entwicklung</strong></td><td>Was wird als Nächstes verbessert?</td><td><textarea id="qc6" oninput="saveTxt('qc6')" placeholder="Konkreter nächster Schritt ..."></textarea></td></tr>
+      </tbody>
+    </table>
+    <div class="hint-box"><strong>Abschlussprodukt:</strong> Dieser Qualitätscheck kann als Grundlage für ein Gespräch mit Träger, Schulleitung oder Fachberatung genutzt werden.</div>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('qualitaetscheck')">Qualitätscheck abgeschlossen ✓</button>
+  </div>
+</section>
+
+<!-- 13. TRANSFER -->
+<section id="transfer">
+  <div class="card">
+    <h2>🚀 Transfer — Mein nächster Schritt<span class="done-mark">✓</span></h2>
+    <p>Qualität beginnt mit einem konkreten Schritt. Verpflichten Sie sich — schriftlich:</p>
+    <label class="field-lbl">Ich werde in den nächsten 4 Wochen folgendes umsetzen:</label>
+    <textarea id="t1" placeholder="Konkreter Schritt (was, wann, wie)…" oninput="saveTxt('t1')"></textarea>
+    <label class="field-lbl">Dabei brauche ich Unterstützung von:</label>
+    <textarea id="t2" placeholder="Schulleitung / Träger / Kolleg:in / Netzwerk…" oninput="saveTxt('t2')"></textarea>
+    <label class="field-lbl">So überprüfe ich, ob es geklappt hat:</label>
+    <textarea id="t3" placeholder="Mein Erfolgsindikator…" oninput="saveTxt('t3')"></textarea>
+    <button class="btn btn-primary" aria-label="Abschnitt abschließen" style="margin-top:14px" onclick="doneSection('transfer')">Transfer geplant ✓</button>
+  </div>
+</section>
+
+<!-- SEND SECTION -->
+<div class="send-section">
+  <h3>📤 Modul abschließen und senden</h3>
+  <p>Alle Aufgaben erledigt? Klicken Sie auf Senden, um Ihre Ergebnisse zu übermitteln.</p>
+  <button id="send-btn" onclick="sendToSheets()" class="btn btn-green" disabled style="font-size:1rem;padding:12px 32px">Ergebnisse senden</button>
+  <div id="send-status-hint">Bitte Namen eingeben und alle Aufgaben erledigen.</div>
+</div>
+
+</main>
+
+<!-- NAV -->
+<nav class="mobile-nav">
+  <a href="#vorwissen" onclick="scrollTo('vorwissen')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a9 9 0 110 18A9 9 0 0112 2z"/><path d="M12 8v4l2 2"/></svg>Start</a>
+  <a href="#qualitaet" onclick="scrollTo('qualitaet')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>Qualität</a>
+  <a href="#aufgaben" onclick="scrollTo('aufgaben')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>Aufgaben</a>
+  <a href="#reflexion" onclick="scrollTo('reflexion')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>Reflexion</a>
+  <a href="#transfer" onclick="scrollTo('transfer')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>Transfer</a>
+</nav>
+
+<script>
+
+// ============================================================
+// CONFIG
+// ============================================================
+const PREFIX = 'sol_b1m4_';
+const SECTION_KEYS = ['vorwissen','video','qualitaet','ethikkodex','abgrenzung','fachstandards','branching','aufgaben','fehler','reflexion','gelingen','qualitaetscheck','transfer'];
+const WEBAPP_URL_M4 = 'https://script.google.com/macros/s/AKfycbx2cnUk_ehIS-ZKwyknWK4D1QpIHZKRHWL0xF-B7jysCK6xky1IUS13-53x-Z4QOJuRbw/exec';
+const TEXT_IDS = ['vw1','vw2','vf1','vf2','lag_reflex','ethik_reflex','fehler_reflex','r1','r2','r3','vw_rueckblick','g_text','t1','t2','t3','fw1','fw2','fw3','fw4','qc1','qc2','qc3','qc4','qc5','qc6'];
+
+// ============================================================
+// PROGRESS
+// ============================================================
+const progressKeys = new Set(SECTION_KEYS);
+
+function ls(k){ return localStorage.getItem(PREFIX+k); }
+function saveLS(k,v){ localStorage.setItem(PREFIX+k,v); }
+function saveTxt(id){ const el=document.getElementById(id); if(el) saveLS(id, el.value); }
+function len(id){ const el=document.getElementById(id); return el ? el.value.trim().length : 0; }
+function countFilled(ids,min=20){ return ids.filter(id=>len(id)>=min).length; }
+function showValidation(section,msg){
+  const sec=document.getElementById(section);
+  if(!sec) return;
+  let box=sec.querySelector('.validation-msg');
+  if(!box){ box=document.createElement('div'); box.className='validation-msg'; sec.querySelector('.card')?.appendChild(box); }
+  box.textContent=msg; box.style.display='block';
+  setTimeout(()=>{ if(box) box.style.display='none'; },4200);
+}
+function markSection(key){ const sec=document.getElementById(key); if(sec) sec.classList.add('sec-done'); }
+
+function completionCheck(key){
+  switch(key){
+    case 'vorwissen':
+      return {ok:[1,2,3,4].every(n=>ls('tf_'+n)) && countFilled(['vw1','vw2'],30)>=1, msg:'Bitte beantworten Sie alle vier Wahr/Falsch-Fragen und füllen Sie mindestens ein Vorwissensfeld aus.'};
+    case 'video':
+      return {ok:len('vf1')>=40 && len('vf2')>=40, msg:'Bitte beantworten Sie beide Videofragen mit je mindestens etwa 40 Zeichen.'};
+    case 'qualitaet':
+      return {ok:len('lag_reflex')>=60, msg:'Bitte formulieren Sie eine kurze Einschätzung zu starken und ausbaubaren Qualitätsdimensionen.'};
+    case 'ethikkodex':
+      return {ok:[1,2,3,4].every(n=>ls('blank_b'+n)==='1') && len('ethik_reflex')>=60, msg:'Bitte füllen Sie den Lückentext korrekt aus und ergänzen Sie Ihre Ethik-Reflexion.'};
+    case 'abgrenzung':
+      return {ok:ls('drag_correct')==='1', msg:'Bitte ordnen Sie die Begriffe korrekt zu und prüfen Sie die Zuordnung.'};
+    case 'fachstandards':
+      return {ok:ls('sort_correct')==='1', msg:'Bitte bringen Sie den Qualitätszirkel in die richtige Reihenfolge und prüfen Sie ihn.'};
+    case 'branching':
+      return {ok:ls('branch_good')==='1', msg:'Bitte erreichen Sie im Szenario mindestens einen fachlich tragfähigen Entscheidungspfad.'};
+    case 'aufgaben':
+      return {ok:['mc1','mc2','mc3','mark','memory'].every(k=>ls('task_'+k)==='1'), msg:'Bitte schließen Sie Multiple Choice, Markieraufgabe und Memory korrekt ab.'};
+    case 'fehler':
+      return {ok:Number(ls('fehler_opened')||0)>=2 && (countFilled(['fw1','fw2','fw3','fw4'],25)>=2 || len('fehler_reflex')>=40), msg:'Bitte bearbeiten Sie mindestens zwei Fehler-Situationen und öffnen Sie die Analysen.'};
+    case 'reflexion':
+      return {ok:['a1','a2','a3','a4'].every(k=>ls('ampel_'+k)) && len('r1')>=40 && len('r2')>=40 && len('r3')>=40 && len('vw_rueckblick')>=40, msg:'Bitte setzen Sie alle Ampeln und füllen Sie die vier Reflexionsfelder aus.'};
+    case 'gelingen':
+      return {ok:len('g_text')>=300, msg:'Bitte schreiben Sie den Transfer-Essay mit mindestens fünf Sätzen bzw. ca. 300 Zeichen.'};
+    case 'qualitaetscheck':
+      return {ok:countFilled(['qc1','qc2','qc3','qc4','qc5','qc6'],20)>=4 && len('qc6')>=20, msg:'Bitte füllen Sie mindestens vier Felder des Qualitätschecks aus, darunter den nächsten Entwicklungsschritt.'};
+    case 'transfer':
+      return {ok:len('t1')>=20 && len('t2')>=10 && len('t3')>=20, msg:'Bitte füllen Sie alle drei Transferfelder konkret aus.'};
+    default:
+      return {ok:true,msg:''};
+  }
+}
+
+function upProg() {
+  let done = 0;
+  progressKeys.forEach(k => { if(ls(k)==='1') done++; });
+  const pct = Math.round(done/progressKeys.size*100);
+  document.getElementById('prog-bar').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = 'Fortschritt: '+pct+' % ('+done+' von '+progressKeys.size+' Bereichen)';
+  updateHeaderSendBtn();
+}
+
+function doneSection(key) {
+  TEXT_IDS.forEach(saveTxt);
+  const check=completionCheck(key);
+  if(!check.ok){ showValidation(key,check.msg); return; }
+  saveLS(key,'1');
+  markSection(key);
+  upProg();
+}
+
+function restoreAll() {
+  TEXT_IDS.forEach(id => { const el = document.getElementById(id); if(el && ls(id)) el.value = ls(id); });
+  ['b1','b2','b3','b4'].forEach(id => { const el = document.getElementById(id); if(el && ls('blank_'+id+'_value')) { el.value = ls('blank_'+id+'_value'); checkBlank(el); } });
+  SECTION_KEYS.forEach(k => { if(ls(k)==='1') markSection(k); });
+  const n = ls('name'); if(n) document.getElementById('teilnehmer-name').value = n;
+  upProg();
+}
+
+// ============================================================
+// HEADER SEND BUTTON
+// ============================================================
+function updateHeaderSendBtn() {
+  const name = document.getElementById('teilnehmer-name').value.trim();
+  saveLS('name', name);
+  let done = 0;
+  progressKeys.forEach(k => { if(ls(k)==='1') done++; });
+  const allDone = done >= progressKeys.size;
+  const ok = name.length >= 3 && allDone;
+  const btn = document.getElementById('header-send-btn');
+  btn.disabled = !ok;
+  btn.style.opacity = ok ? '1' : '.5';
+  btn.style.cursor = ok ? 'pointer' : 'not-allowed';
+  ['send-btn','send-btn-2'].forEach(id => { const b = document.getElementById(id); if(b){ b.disabled = !ok; b.style.opacity = ok ? '1' : '.5'; } });
+  const hint = ok ? 'Bereit zum Senden.' : 'Bitte Namen eingeben und alle Bereiche vollständig bearbeiten.';
+  ['send-status-hint','send-hint-2'].forEach(id=>{ const el=document.getElementById(id); if(el && !el.textContent.includes('gesendet')) el.textContent=hint; });
+}
+
+// ============================================================
+// GOOGLE SHEETS SEND
+// ============================================================
+function collectDataM4() {
+  TEXT_IDS.forEach(saveTxt);
+  const name = document.getElementById('teilnehmer-name').value.trim();
+  const sections = {};
+  SECTION_KEYS.forEach(k => { sections[k] = ls(k)==='1' ? 1 : 0; });
+  const done = Object.values(sections).filter(v=>v===1).length;
+  const pct = Math.round(done/SECTION_KEYS.length*100);
+  const texts = {};
+  TEXT_IDS.forEach(id => { const v = ls(id); if(v && v.trim()) texts[id] = v; });
+  const ampel = {}; ['a1','a2','a3','a4'].forEach(k => { const v=ls('ampel_'+k); if(v) ampel[k]=v; });
+  const tf = {}; [1,2,3,4].forEach(n=>{ tf['tf'+n]=ls('tf_'+n)||''; });
+  const blanks = {}; ['b1','b2','b3','b4'].forEach(id=>{ blanks[id]=ls('blank_'+id+'_value')||''; });
+  const checks = {
+    drag_correct: ls('drag_correct')||'0', sort_correct: ls('sort_correct')||'0', branch_good: ls('branch_good')||'0', branch_path: ls('branch_path')||'',
+    mc1: ls('task_mc1')||'0', mc2: ls('task_mc2')||'0', mc3: ls('task_mc3')||'0', mark: ls('task_mark')||'0', memory: ls('task_memory')||'0', fehler_opened: ls('fehler_opened')||'0'
+  };
+  return { name, modul:'Band 1 Modul 4', titel:'Fachstandards & Qualität', erledigt: done+'/'+SECTION_KEYS.length, fortschritt: pct,
+           timestamp: new Date().toLocaleString('de-DE'), ...sections, texts, ampel, tf, blanks, checks };
+}
+
+function setStatus(msg, ok) {
+  ['header-send-status','send-status-hint','send-hint-2'].forEach(id => { const el = document.getElementById(id); if(el) el.textContent = msg; });
+}
+
+function sendToSheets() {
+  const name=document.getElementById('teilnehmer-name').value.trim();
+  if(name.length<3){ setStatus('Bitte zuerst den vollständigen Namen eingeben.',false); return; }
+  if([...progressKeys].some(k=>ls(k)!=='1')){ setStatus('Bitte zuerst alle Bereiche vollständig bearbeiten.',false); return; }
+  setStatus('Wird gesendet…', true);
+  const data = collectDataM4();
+  fetch(WEBAPP_URL_M4, { method:'POST', body: JSON.stringify(data) })
+    .then(r => r.json())
+    .then(j => { setStatus(j.status==='ok' ? '✓ Erfolgreich gesendet!' : '⚠ Fehler: '+j.message, j.status==='ok'); })
+    .catch(() => setStatus('⚠ Verbindungsfehler', false));
+}
+
+// ============================================================
+// SCROLL
+// ============================================================
+function scrollTo(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}); }
+
+// ============================================================
+// TRUE / FALSE
+// ============================================================
+function tfAnswer(btn, num) {
+  const item = btn.closest('.tf-item');
+  const btns = item.querySelectorAll('.tf-btn');
+  btns.forEach(b => b.classList.remove('selected','correct','wrong'));
+  const isCorrect = btn.dataset.correct === 'true';
+  btn.classList.add(isCorrect ? 'correct' : 'wrong');
+  saveLS('tf_'+num, isCorrect ? 'richtig' : 'falsch');
+  const fb = document.getElementById('tf-fb-'+num);
+  if(fb){ fb.style.display='block'; fb.style.background = isCorrect ? 'var(--grl)' : 'var(--rdl)'; fb.style.padding='8px 10px'; fb.style.borderRadius='6px'; }
+}
+
+// ============================================================
+// ACCORDION
+// ============================================================
+function toggleAcc(head) {
+  const item = head.parentElement;
+  const body = item.querySelector('.acc-body');
+  const isOpen = item.classList.contains('open');
+  // close all in same parent
+  head.closest('#lag-acc').querySelectorAll('.acc-item').forEach(i => {
+    i.classList.remove('open');
+    i.querySelector('.acc-body').classList.remove('open');
+  });
+  if(!isOpen){ item.classList.add('open'); body.classList.add('open'); }
+}
+
+// ============================================================
+// FLIP CARDS — no extra JS needed (CSS + onclick)
+// ============================================================
+
+// ============================================================
+// FILL BLANKS
+// ============================================================
+function normalizeTxt(s){ return (s||'').trim().toLowerCase().replaceAll('ä','ae').replaceAll('ö','oe').replaceAll('ü','ue').replaceAll('ß','ss'); }
+function checkBlank(inp) {
+  saveLS('blank_'+inp.id+'_value', inp.value);
+  const answers = (inp.dataset.ans||'').split('|').map(normalizeTxt);
+  const val = normalizeTxt(inp.value);
+  const ok = val.length>0 && answers.includes(val);
+  inp.classList.toggle('correct', ok);
+  inp.classList.toggle('wrong', val.length>2 && !ok);
+  saveLS('blank_'+inp.id, ok ? '1' : '0');
+}
+
+// ============================================================
+// DRAG & DROP (Fundament vs Instrument)
+// ============================================================
+let draggedChip = null;
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.drag-chip').forEach(chip => {
+    chip.addEventListener('dragstart', e => { draggedChip = chip; e.dataTransfer.effectAllowed='move'; });
+    chip.addEventListener('click', e => { e.stopPropagation(); selectChip(chip); });
+  });
+});
+function dragOver(e){ e.preventDefault(); e.currentTarget.classList.add('over'); }
+function selectChip(chip){ document.querySelectorAll('.drag-chip').forEach(c=>c.classList.remove('selected-chip')); draggedChip = chip; chip.classList.add('selected-chip'); }
+function clickDropZone(zone){ if(!draggedChip) return; zone.querySelectorAll('span').forEach(s => s.remove()); zone.appendChild(draggedChip); draggedChip.classList.add('placed'); draggedChip.classList.remove('selected-chip'); draggedChip=null; }
+function dropItem(e) {
+  e.preventDefault();
+  const zone = e.currentTarget;
+  zone.classList.remove('over');
+  if(!draggedChip) return;
+  // remove placeholder
+  zone.querySelectorAll('span').forEach(s => s.remove());
+  zone.appendChild(draggedChip);
+  draggedChip.classList.add('placed');
+}
+
+function checkDrag() {
+  let correct = 0, total = 0;
+  document.querySelectorAll('.drag-chip').forEach(chip => {
+    const zone = chip.closest('.drag-zone');
+    if(!zone) return;
+    total++;
+    if(zone.dataset.zone === chip.dataset.target) correct++;
+  });
+  const res = document.getElementById('drag-result');
+  res.style.display='block';
+  res.style.padding='10px 14px'; res.style.borderRadius='8px';
+  if(correct===total && total>0){
+    saveLS('drag_correct','1');
+    res.style.background='var(--grl)'; res.style.color='var(--gr)';
+    res.textContent = '✅ Alle '+total+' Begriffe korrekt zugeordnet!';
+  } else {
+    saveLS('drag_correct','0');
+    res.style.background='var(--yll)'; res.style.color='#5d4037';
+    res.textContent = correct+' von '+total+' korrekt. Tipp: Fundament = Was gute Arbeit ist; Instrument = Wie man es misst.';
+  }
+}
+
+// ============================================================
+// SORT PARAGRAPHS
+// ============================================================
+let sortDragged = null;
+function sortDragStart(e){ sortDragged = e.currentTarget; e.currentTarget.classList.add('dragging'); }
+let sortSelected=null;
+function clickSortItem(item){
+  if(!sortSelected){ sortSelected=item; item.classList.add('selected-sort'); return; }
+  if(sortSelected===item){ item.classList.remove('selected-sort'); sortSelected=null; return; }
+  const list=document.getElementById('sort-list');
+  list.insertBefore(sortSelected,item);
+  sortSelected.classList.remove('selected-sort'); sortSelected=null;
+}
+function sortDragOver(e){ e.preventDefault(); }
+function sortDrop(e) {
+  e.preventDefault();
+  if(sortDragged && e.currentTarget !== sortDragged){
+    const list = document.getElementById('sort-list');
+    const items = [...list.children];
+    const fromIdx = items.indexOf(sortDragged);
+    const toIdx = items.indexOf(e.currentTarget);
+    if(fromIdx < toIdx) list.insertBefore(sortDragged, e.currentTarget.nextSibling);
+    else list.insertBefore(sortDragged, e.currentTarget);
+  }
+  sortDragged?.classList.remove('dragging');
+  sortDragged = null;
+}
+function checkSort() {
+  const items = [...document.querySelectorAll('#sort-list .sort-item')];
+  items.forEach((item,i) => { item.querySelector('.sort-num').textContent = i+1; });
+  const order = items.map(i=>parseInt(i.dataset.pos));
+  const correct = order.join(',') === '1,2,3,4,5';
+  saveLS('sort_correct', correct ? '1' : '0');
+  const res = document.getElementById('sort-result');
+  res.style.padding='8px 12px'; res.style.borderRadius='8px';
+  if(correct){
+    res.style.background='var(--grl)'; res.style.color='var(--gr)';
+    res.textContent='✅ Richtige Reihenfolge! Ist-Stand → Ziele → Maßnahmen → Evaluation → Konzept anpassen.';
+  } else {
+    res.style.background='var(--rdl)'; res.style.color='var(--rd)';
+    res.textContent='Noch nicht ganz — denken Sie: erst analysieren, dann planen, dann umsetzen, dann prüfen.';
+  }
+}
+
+// ============================================================
+// BRANCHING
+// ============================================================
+function showBranch(base, choice) {
+  ['a','b','c'].forEach(c => {
+    const el = document.getElementById('branch-'+base+'-'+c);
+    if(el) el.style.display = (c===choice) ? 'block' : 'none';
+  });
+  saveLS('branch_path', (ls('branch_path')||'') + base + ':' + choice + ' > ');
+  const shown=document.getElementById('branch-'+base+'-'+choice);
+  if(shown && shown.classList.contains('good')) saveLS('branch_good','1');
+}
+function showStep(n){ document.getElementById('branch-step-'+n).style.display='block'; document.getElementById('branch-step-'+n).scrollIntoView({behavior:'smooth'}); }
+
+// ============================================================
+// MULTIPLE CHOICE
+// ============================================================
+function checkMC(id, correctIdx) {
+  const opts = document.querySelectorAll('#'+id+' .mc-opt');
+  opts.forEach((opt,i) => {
+    opt.classList.remove('correct','wrong');
+    if(opt.querySelector('input').checked){
+      opt.classList.add(i===correctIdx ? 'correct' : 'wrong');
+    }
+  });
+  const fb = document.getElementById(id+'-fb');
+  const checked = [...opts].findIndex(o=>o.querySelector('input').checked);
+  const ok = checked===correctIdx;
+  saveLS('task_'+id, ok ? '1' : '0');
+  if(fb) fb.textContent = ok ? '✅ Richtig!' : checked===-1 ? 'Bitte eine Antwort auswählen.' : '❌ Nicht ganz — lesen Sie die Antwortoptionen nochmals.';
+}
+function checkMCMulti(id, correctArr) {
+  const opts = document.querySelectorAll('#'+id+' .mc-opt');
+  let score = 0;
+  opts.forEach((opt,i) => {
+    const inp = opt.querySelector('input');
+    opt.classList.remove('correct','wrong');
+    if(inp.checked){
+      if(correctArr.includes(i)){ opt.classList.add('correct'); score++; } else { opt.classList.add('wrong'); score--; }
+    }
+  });
+  const fb = document.getElementById(id+'-fb');
+  const ok = score===correctArr.length && [...opts].filter(o=>o.querySelector('input').checked).length===correctArr.length;
+  saveLS('task_'+id, ok ? '1' : '0');
+  if(fb) fb.textContent = ok ? '✅ Alle richtigen Antworten gefunden!' : 'Nicht ganz — es gibt '+correctArr.length+' richtige Antworten.';
+}
+
+// ============================================================
+// MARK THE WORDS
+// ============================================================
+function toggleMark(el){ el.classList.toggle('marked'); }
+function checkMarkWords() {
+  const words = document.querySelectorAll('.markword');
+  let correct=0,total=0;
+  words.forEach(w => {
+    w.classList.remove('correct-mark','wrong-mark');
+    const shouldMark = w.dataset.correct==='1';
+    const isMarked = w.classList.contains('marked');
+    if(shouldMark){ total++; if(isMarked){ w.classList.add('correct-mark'); correct++; } }
+    else if(isMarked){ w.classList.add('wrong-mark'); }
+  });
+  const res = document.getElementById('mark-result');
+  res.style.padding='8px 12px'; res.style.borderRadius='8px';
+  const wrong=[...words].some(w=>w.dataset.correct==='0' && w.classList.contains('marked'));
+  const ok=correct===total && !wrong; saveLS('task_mark', ok ? '1':'0');
+  if(ok){ res.style.background='var(--grl)'; res.style.color='var(--gr)'; res.textContent='✅ Alle '+total+' Begriffe gefunden!'; }
+  else { res.style.background='var(--yll)'; res.style.color='#5d4037'; res.textContent=correct+' von '+total+' gefunden. Grün = richtig, Rot = falsch markiert.'; }
+}
+
+// ============================================================
+// MEMORY GAME
+// ============================================================
+const memPairs = [
+  ['Strukturqualität','Raum, Stellen, Finanzierung'],
+  ['Ethikkodex','Professionelle Orientierung DBSH'],
+  ['Prozessqualität','Fachliches Handeln im Fall'],
+  ['Ergebnisqualität','Messbare Wirkung der Arbeit'],
+  ['Supervision','Fachkompetenzqualität sichern'],
+  ['Kooperationsvertrag','Grundlage der Zusammenarbeit'],
+];
+let memCards=[], memFlipped=[], memMatched=0, memLocked=false;
+function buildMemory(){
+  const grid=document.getElementById('mem-grid');
+  const all=[...memPairs.flatMap(([a,b])=>[{text:a,pair:a},{text:b,pair:a}])];
+  all.sort(()=>Math.random()-.5);
+  memCards=[];
+  grid.innerHTML='';
+  all.forEach((item,i)=>{
+    const card=document.createElement('div');
+    card.className='mem-card';
+    card.innerHTML=`<div class="mem-inner"><div class="mem-front">?</div><div class="mem-back">${item.text}</div></div>`;
+    card.dataset.pair=item.pair;
+    card.dataset.idx=i;
+    card.onclick=()=>flipMem(card);
+    grid.appendChild(card);
+    memCards.push(card);
+  });
+  memFlipped=[]; memMatched=0;
+}
+function flipMem(card){
+  if(memLocked||card.classList.contains('flipped')||card.classList.contains('matched')) return;
+  card.classList.add('flipped');
+  memFlipped.push(card);
+  if(memFlipped.length===2){
+    memLocked=true;
+    setTimeout(()=>{
+      if(memFlipped[0].dataset.pair===memFlipped[1].dataset.pair&&memFlipped[0]!==memFlipped[1]){
+        memFlipped.forEach(c=>c.classList.add('matched'));
+        memMatched++;
+        if(memMatched===memPairs.length){ saveLS('task_memory','1'); document.getElementById('mem-result').textContent='🎉 Alle Paare gefunden!'; }
+      } else {
+        memFlipped.forEach(c=>c.classList.remove('flipped'));
+      }
+      memFlipped=[];memLocked=false;
+    },900);
+  }
+}
+
+// ============================================================
+// AMPEL
+// ============================================================
+function setAmpel(btn, key, val) {
+  btn.closest('.ampel-btns').querySelectorAll('.ampel-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  saveLS('ampel_'+key, val);
+}
+
+// ============================================================
+// FEHLERWERKSTATT
+// ============================================================
+function toggleFehler(btn){
+  const reveal=btn.nextElementSibling;
+  reveal.style.display = reveal.style.display==='block' ? 'none' : 'block';
+  btn.textContent = reveal.style.display==='block' ? 'Analyse verbergen' : 'Analyse zeigen';
+  if(reveal.style.display==='block'){ const opened=new Set((ls('fehler_ids')||'').split(',').filter(Boolean)); opened.add([...document.querySelectorAll('.fehler-item button')].indexOf(btn).toString()); saveLS('fehler_ids',[...opened].join(',')); saveLS('fehler_opened', opened.size); }
+}
+
+// ============================================================
+// INIT
+// ============================================================
+document.addEventListener('DOMContentLoaded', ()=>{
+  buildMemory();
+  restoreAll();
+  document.querySelectorAll('#sort-list .sort-item').forEach(item=>item.addEventListener('click',()=>clickSortItem(item)));
+});
+</script>
+</body>
+</html>
