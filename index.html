@@ -925,7 +925,9 @@ nav.mobile-nav a svg{width:20px;height:20px}
 <div class="send-section">
   <h3>📤 Modul abschließen und senden</h3>
   <p>Sie können jederzeit senden. Offene Aufgaben werden als offen mitgesendet.</p>
-  <button id="send-btn" onclick="sendToSheets()" class="btn btn-green" disabled style="font-size:1rem;padding:12px 32px">Ergebnisse senden</button>
+  <div class="form-group"><label><input type="checkbox" id="privacyConfirm"> Keine identifizierenden Falldaten</label></div>
+<div class="form-group"><label><input type="checkbox" id="sendConsent"> Online-Übermittlung zustimmen</label></div>
+<button id="send-btn" onclick="sendToSheets()" class="btn btn-green" disabled style="font-size:1rem;padding:12px 32px">Ergebnisse senden</button>
   <div id="send-status-hint">Bitte Namen und E-Mail eingeben. Senden ist auch bei offenen Aufgaben möglich.</div>
 </div>
 
